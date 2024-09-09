@@ -6,6 +6,10 @@ public class WASD : MonoBehaviour
 {
 
     public float accel = 10f;   // A public variable to multiply direction speed by, and can be controlled in the editor because public
+    public float horAccel = 0.5f;
+    public float vertAccel = 0.5f;
+
+    public float collectedScore = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +28,11 @@ public class WASD : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 currentDir = Dir();  // Calls the Dir() function to find out what the current player inputs are
-    // Throw it into Translate, multiplied by the acceleration variable
+                                     // Throw it into Translate, multiplied by the acceleration variable
+        currentDir.x *= horAccel;
+        currentDir.y *= vertAccel;
 
-        transform.Translate(currentDir * accel * Time.deltaTime);     //main move script for the player based on the x and y inputs
+        transform.Translate(currentDir);     //main move script for the player based on the x and y inputs
     }
 
     // Gets the inputs of the WASD/keyboard/controller
@@ -38,5 +44,16 @@ public class WASD : MonoBehaviour
 
         Vector3 myDir = new Vector3(x, y, 0);   // Constructs the vector based off the vertical and horizontal axis inputs
         return myDir;     // Returns that value
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)      // Checking for enemy or collectible collisions
+    {
+        Debug.Log("Player has collided with " + collision.gameObject.name);
+
+        if (collision.gameObject.tag == "Collectible")   // When we collide with something with the tag collectible, destroy it and increase player score
+        {
+            Destroy(collision.gameObject);    // Destroys the collectible gameobject
+            collectedScore++;    // Adds +1 to collectedScore on every collision
+        }
     }
 }
