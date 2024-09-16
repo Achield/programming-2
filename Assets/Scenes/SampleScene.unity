@@ -353,7 +353,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789343595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.73, y: 12.55, z: 4.077418}
+  m_LocalPosition: {x: -4.68, y: 11.35, z: 4.077418}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -532,7 +532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 295085760818762770, guid: c5ee8f8731cc618428a330760caaae24, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 295085760818762782, guid: c5ee8f8731cc618428a330760caaae24, type: 3}
       propertyPath: m_RootOrder
@@ -760,6 +760,18 @@ PrefabInstance:
     - target: {fileID: 593732187876984316, guid: 2403ddeaed9648b4990e8f3a409b7569, type: 3}
       propertyPath: m_Name
       value: PC
+      objectReference: {fileID: 0}
+    - target: {fileID: 593732187876984319, guid: 2403ddeaed9648b4990e8f3a409b7569, type: 3}
+      propertyPath: horAccel
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 593732187876984319, guid: 2403ddeaed9648b4990e8f3a409b7569, type: 3}
+      propertyPath: vertAccel
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 593732187876984319, guid: 2403ddeaed9648b4990e8f3a409b7569, type: 3}
+      propertyPath: jumpHeight
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2403ddeaed9648b4990e8f3a409b7569, type: 3}
@@ -995,7 +1007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5784689889912345970, guid: f314f78f2a59ddc41856588af59fd849, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 5784689889912345982, guid: f314f78f2a59ddc41856588af59fd849, type: 3}
       propertyPath: m_RootOrder
