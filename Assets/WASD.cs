@@ -9,17 +9,17 @@ public class WASD : MonoBehaviour
     public float horAccel = 0.2f;
     public float vertAccel = 0.2f;
     private Rigidbody2D rb;
-    public float jumpHeight;
-    public LayerMask Collision_Mask;
+
+    public float jumpHeight = 8f;
     public bool canJump;
 
+    public float coyoteTime = 0.5f;
     public float collectedScore = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        jumpHeight = 5f;
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class WASD : MonoBehaviour
         if (Input.GetButtonDown("Jump") && canJump)       // If jump button (space) is pressed and
                                                           // canJump bool is true (positive integer) then run code
         {
-            rb.AddForce(new Vector2(rb.velocity.x, jumpHeight * 100));
+            rb.AddForce(Vector3.up * jumpHeight * 100);
         }
     }
 
@@ -41,7 +41,7 @@ public class WASD : MonoBehaviour
         currentDir.x *= horAccel;
         currentDir.y *= vertAccel;
 
-        transform.Translate(currentDir);     //main move script for the player based on the x and y inputs
+        transform.Translate(currentDir);     //main move script for the player based on the x and y inputs (can use rb.Addforce(currentDir); instead
 
         canJump = Physics2D.CircleCast(transform.position, 0.5f, Vector2.down, 0.05f);
 
@@ -69,4 +69,17 @@ public class WASD : MonoBehaviour
             collectedScore++;    // Adds +1 to collectedScore on every collision
         }
     }
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("Exited collision");
+        StartCoroutine(CoyoteJump(coyoteTime));
+    }
+
+    public IEnumerator CoyoteJump(float time)
+    {
+        yield return new WaitForSeconds(time);
+        canJump = false;
+    }
+
 }

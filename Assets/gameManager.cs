@@ -32,7 +32,7 @@ public class gameManager : MonoBehaviour
         {
             spawnTimer = 0f;
             Instantiate(myCollectible);
-            Debug.Log("Collectible spawned");
+            // Debug.Log("Collectible spawned");
         }
         // Because gameManager has an explicit connection to the player we can reference the player components including WASD.cs to find score
         playerScore = playerScript.collectedScore;
