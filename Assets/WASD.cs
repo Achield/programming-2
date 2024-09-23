@@ -52,6 +52,7 @@ public class WASD : MonoBehaviour
                                                                          // canJump bool is true (positive integer) then run code
         {
             rb.AddForce(Vector3.up * jumpHeight * 100);
+            //rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
 
             jumpBufferCounter = 0f;
         }
@@ -102,7 +103,17 @@ public class WASD : MonoBehaviour
         }
     }
 
+    //public IEnumerator changeColor(float time)
+    //{
+    //    myWat.color = Color.red;
+    //    yield return new WaitForSeconds(time);
+    //    myWat.color = Color.white;
+    //}
+}
+
+
     //public void OnCollisionExit2D(Collision2D collision)
+    //{
     //{
     //    Debug.Log("Exited collision");
     //    StartCoroutine(CoyoteJump(coyoteTime));
@@ -114,4 +125,4 @@ public class WASD : MonoBehaviour
     //    canJump = false;
     //}
 
-}
+    //}
