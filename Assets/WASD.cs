@@ -6,14 +6,19 @@ public class WASD : MonoBehaviour
 {
 
     public float accel = 10f;   // A public variable to multiply direction speed by, and can be controlled in the editor because public
-    public float horAccel = 0.2f;
-    public float vertAccel = 0.2f;
+    public float horAccel = 2.5f;
+    public float vertAccel = 2.5f;
     private Rigidbody2D rb;
 
-    public float jumpHeight = 8f;
+    public float jumpHeight = 10f;
     public bool canJump;
 
-    public float coyoteTime = 0.5f;
+    public float coyoteTime = 0.1f;
+    public float coyoteTimeCounter;
+
+    public float jumpBufferTime = 0.2f;
+    public float jumpBufferCounter;
+
     public float collectedScore = 0f;
 
     // Start is called before the first frame update
@@ -25,10 +30,37 @@ public class WASD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && canJump)       // If jump button (space) is pressed and
-                                                          // canJump bool is true (positive integer) then run code
+        if (canJump)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)       // If jump button (space) is pressed and
+                                                                         // canJump bool is true (positive integer) then run code
         {
             rb.AddForce(Vector3.up * jumpHeight * 100);
+
+            jumpBufferCounter = 0f;
+        }
+
+        if (Input.GetButtonDown("Jump") && rb.velocity.y > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+
+            coyoteTimeCounter = 0f;
         }
     }
 
@@ -38,12 +70,12 @@ public class WASD : MonoBehaviour
     {
         Vector3 currentDir = Dir();  // Calls the Dir() function to find out what the current player inputs are
                                      // Throw it into Translate, multiplied by the acceleration variable
-        currentDir.x *= horAccel;
-        currentDir.y *= vertAccel;
+        currentDir.x *= horAccel * 0.05f;
+        currentDir.y *= vertAccel * 0.05f;
 
         transform.Translate(currentDir);     //main move script for the player based on the x and y inputs (can use rb.Addforce(currentDir); instead
 
-        canJump = Physics2D.CircleCast(transform.position, 0.5f, Vector2.down, 0.05f);
+         canJump = Physics2D.CircleCast(transform.position, 0.5f, Vector2.down, 0.05f);
 
         // Another alternative is rb.velocity = new Vector2(x * speed, rb.velocity.y)
     }
@@ -70,16 +102,16 @@ public class WASD : MonoBehaviour
         }
     }
 
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        Debug.Log("Exited collision");
-        StartCoroutine(CoyoteJump(coyoteTime));
-    }
+    //public void OnCollisionExit2D(Collision2D collision)
+    //{
+    //    Debug.Log("Exited collision");
+    //    StartCoroutine(CoyoteJump(coyoteTime));
+    //}
 
-    public IEnumerator CoyoteJump(float time)
-    {
-        yield return new WaitForSeconds(time);
-        canJump = false;
-    }
+    //public IEnumerator CoyoteJump(float time)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    canJump = false;
+    //}
 
 }
