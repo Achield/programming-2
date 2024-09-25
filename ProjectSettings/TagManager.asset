@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collectible
   - Ground
+  - KILL
   layers:
   - Default
   - TransparentFX
