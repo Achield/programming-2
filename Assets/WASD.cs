@@ -101,6 +101,12 @@ public class WASD : MonoBehaviour
             Destroy(collision.gameObject);    // Destroys the collectible gameobject
             collectedScore++;    // Adds +1 to collectedScore on every collision
         }
+
+        if (collision.gameObject.tag == "Collectible2")
+        {
+            Destroy(collision.gameObject);
+            collectedScore = collectedScore + 2;
+        }
     }
 
     //public IEnumerator changeColor(float time)
